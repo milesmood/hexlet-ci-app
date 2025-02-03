@@ -1,9 +1,8 @@
 name: ci-test
 
 on:
-  push:
-    branches:
-    - main
+  - push
+  - pull_request
 
 jobs:
   test:
@@ -11,9 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          cache: 'npm' # ускоряет повторные сборки
       - name: set-up
         run: make setup
       - name: run tests
         run: make test
       - name: run link
         run: make lint
+      - uses: hexlet-components/hello-from-hexlet-action@release
