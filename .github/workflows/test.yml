@@ -1,0 +1,19 @@
+name: ci-test
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  test:
+    name: running test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: set-up
+        run: make set-up
+      - name: run tests
+        run: make test
+      - name: run link
+        run: make lint
